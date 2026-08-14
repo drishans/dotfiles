@@ -14,26 +14,46 @@ dotfiles/
 ├── .gitattributes
 ├── .gitignore
 ├── README.md
-└── home/                 # chezmoi source state
+└── home/                     # chezmoi source state
+    ├── .claude/              # Claude configuration
+    ├── .config/              # XDG application configuration
+    ├── .pi/agent/            # Pi agent configuration
+    ├── AGENTS.md             # Shared agent guidance
+    ├── AppData/              # Windows application configuration
+    └── dot_gitconfig         # Git configuration
 ```
 
 Paths below [`home/`](home/) mirror their destinations below the user's home directory. Chezmoi applies its source-state attributes while preserving the remaining path:
 
 ```text
 home/dot_gitconfig       -> ~/.gitconfig
-home/code/AGENTS.md      -> ~/code/AGENTS.md
+home/AGENTS.md           -> ~/AGENTS.md
+home/.claude/...         -> ~/.claude/...
+home/.config/...         -> ~/.config/...
+home/.pi/agent/...       -> ~/.pi/agent/...
 home/AppData/...         -> ~/AppData/...
 ```
 
-The nested paths are deliberate. Windows Terminal reads configuration from a fixed package-state location, and the shared `AGENTS.md` is loaded from the working directory used for development. Flattening these files into app-named directories would require copy scripts, reducing the usefulness of native `chezmoi diff`, drift detection, `add`, and `re-add` operations.
+Most configuration is grouped under conventional home-directory namespaces. Deeper paths are retained only where an application requires a fixed destination. For example, Windows Terminal reads configuration from its package-state directory. Flattening that path would require copy scripts, reducing the usefulness of native `chezmoi diff`, drift detection, `add`, and `re-add` operations.
 
 ## Managed configuration
 
 | Component | Source | Destination | Platforms |
 | --- | --- | --- | --- |
 | Git | [`home/dot_gitconfig`](home/dot_gitconfig) | `~/.gitconfig` | All |
-| Agent instructions | [`home/code/AGENTS.md`](home/code/AGENTS.md) | `~/code/AGENTS.md` | All |
+| Agent instructions | [`home/AGENTS.md`](home/AGENTS.md) | `~/AGENTS.md` | All |
+| Claude | [`home/.claude/`](home/.claude/) | `~/.claude/` | All |
+| XDG configuration | [`home/.config/`](home/.config/) | `~/.config/` | Linux, macOS, supported Windows tools |
+| Pi agent | [`home/.pi/agent/`](home/.pi/agent/) | `~/.pi/agent/` | All |
 | Windows Terminal | [`settings.json`](home/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json) | Windows Terminal package state | Windows |
+
+The namespace directories are committed with ignored placeholders until reviewed configuration is added. Placeholder files exist only in the Git source and are not deployed by chezmoi.
+
+## Nix integration
+
+Chezmoi and Home Manager solve different layers of workstation management. Chezmoi is the portability layer for files shared across Windows, Linux, and macOS. Home Manager remains the stronger option for Nix-native package installation, services, environment variables, and modules on NixOS or nix-darwin.
+
+The recommended boundary is explicit ownership: Home Manager manages Nix-specific packages and system integration, while chezmoi manages portable application and agent configuration. A file should be owned by one system, never both.
 
 ## Bootstrap
 
