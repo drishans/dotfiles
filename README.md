@@ -28,6 +28,8 @@ Review `chezmoi diff` before the first apply on any system.
 
 Use `chezmoi init` rather than a manual clone for the active source directory. Chezmoi selects the appropriate platform-specific data location. A separate working clone, when desired for inspection or development, belongs in `~/code/dotfiles` on macOS or `C:\Users\drishan\code\dotfiles` on Windows.
 
+Chezmoi encodes target filenames that start with a dot in source-state names. For example, `home/dot_config` deploys to `~/.config`, `home/dot_claude` deploys to `~/.claude`, and `home/dot_pi` deploys to `~/.pi`.
+
 ## Development workflow
 
 ```sh
