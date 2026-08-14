@@ -1,0 +1,12 @@
+# Repository-only files
+README.md
+.gitattributes
+.gitignore
+.github/
+docs/
+scripts/
+
+# Windows-only configuration
+{{ if ne .chezmoi.os "windows" }}
+AppData/
+{{ end }}
