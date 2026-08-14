@@ -1,10 +1,33 @@
 # dotfiles
 
-Cross-platform personal configuration managed with [chezmoi](https://www.chezmoi.io/).
+Cross-platform workstation configuration managed with [chezmoi](https://www.chezmoi.io/). The repository favors direct target mapping, auditable changes, and minimal bootstrap logic over custom deployment machinery.
 
-> This repository is private while its bootstrap process and privacy boundaries are being established. It is designed to become public after a full history and metadata audit.
+The configuration targets Windows, Linux, and macOS environments, including Nix-managed systems. It is intentionally opinionated and is best treated as a reference or starting point rather than a universal installer.
 
-## Configuration
+## Design
+
+The repository uses [`.chezmoiroot`](https://www.chezmoi.io/reference/special-files/chezmoiroot/) to keep repository metadata separate from managed home-directory state:
+
+```text
+dotfiles/
+├── .chezmoiroot
+├── .gitattributes
+├── .gitignore
+├── README.md
+└── home/                 # chezmoi source state
+```
+
+Paths below [`home/`](home/) mirror their destinations below the user's home directory. Chezmoi applies its source-state attributes while preserving the remaining path:
+
+```text
+home/dot_gitconfig       -> ~/.gitconfig
+home/code/AGENTS.md      -> ~/code/AGENTS.md
+home/AppData/...         -> ~/AppData/...
+```
+
+The nested paths are deliberate. Windows Terminal reads configuration from a fixed package-state location, and the shared `AGENTS.md` is loaded from the working directory used for development. Flattening these files into app-named directories would require copy scripts, reducing the usefulness of native `chezmoi diff`, drift detection, `add`, and `re-add` operations.
+
+## Managed configuration
 
 | Component | Source | Destination | Platforms |
 | --- | --- | --- | --- |
@@ -12,27 +35,15 @@ Cross-platform personal configuration managed with [chezmoi](https://www.chezmoi
 | Agent instructions | [`home/code/AGENTS.md`](home/code/AGENTS.md) | `~/code/AGENTS.md` | All |
 | Windows Terminal | [`settings.json`](home/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json) | Windows Terminal package state | Windows |
 
-The repository root stays presentation-focused while [`home/`](home/) contains chezmoi's source state. Paths beneath `home/` intentionally mirror their real destinations. This preserves native `chezmoi diff`, drift detection, and `chezmoi re-add` behavior without custom copy scripts.
-
-## Device fleet
-
-| Device | Platform |
-| --- | --- |
-| RTX 5090 desktop | Windows 11 |
-| HP OmniBook Ultra Flip | Nix |
-| M1 MacBook | macOS with nix-darwin planned |
-| GPD Win Mini | CachyOS |
-| ThinkPad | Debian |
-
 ## Bootstrap
 
-Install chezmoi with the target system's native package manager. On Windows:
+Install chezmoi with the target system's native package manager. For example, on Windows:
 
 ```powershell
 winget install --id twpayne.chezmoi --exact
 ```
 
-Initialize without immediately changing the machine:
+Initialize the repository, inspect the proposed changes, and apply them:
 
 ```sh
 chezmoi init https://github.com/drishans/dotfiles.git
@@ -40,9 +51,9 @@ chezmoi diff
 chezmoi apply
 ```
 
-Always review `chezmoi diff` before the first apply on a device.
+Review `chezmoi diff` before the first apply on any system.
 
-## Daily workflow
+## Development workflow
 
 ```sh
 chezmoi add ~/.config/example/config
@@ -53,13 +64,12 @@ chezmoi cd
 git status
 ```
 
-## Security and licensing
+## Security boundary
 
-This repository contains configuration, not credentials or redistributable copies of licensed assets. It must not contain:
+This repository contains declarative configuration only. It excludes:
 
-- `.env` files, API keys, OAuth tokens, or SSH private keys
-- Hermes `auth.json`, `.env`, sessions, logs, or databases
-- Application caches, generated indexes, or other mutable state
-- Commercial font binaries, including PragmataPro
+- `.env` files, API keys, OAuth tokens, and SSH private keys
+- Authentication state, sessions, logs, and databases
+- Application caches, generated indexes, and other mutable state
 
-Licensed fonts are referenced by family name in configuration and installed separately from their authorized distribution. Secrets remain in a secret manager or in local files outside chezmoi's source state.
+Secrets belong in a dedicated secret manager or in local files outside chezmoi's source state.
