@@ -2,6 +2,6 @@
   "theme": "dark-ansi",
   "statusLine": {
     "type": "command",
-    "command": "jq -r '(.model.display_name // \"unknown\") as $model | (.context_window.used_percentage // null) as $used | if $used == null then $model else \"\\($model) | ctx: \\($used | round)% used\" end'"
+    "command": "node -e \"let input='';process.stdin.on('data',chunk=>input+=chunk).on('end',()=>{try{const payload=JSON.parse(input);const model=payload.model?.display_name??'unknown';const used=payload.context_window?.used_percentage;console.log(used==null?model:model+' | ctx: '+Math.round(used)+'% used')}catch{console.log('unknown')}})\""
   }
 }
