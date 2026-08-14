@@ -2,8 +2,3 @@
 {{ if ne .chezmoi.os "windows" }}
 AppData/
 {{ end }}
-
-# Source-only placeholders for configuration namespaces
-.claude/.gitkeep
-.config/.gitkeep
-.pi/agent/.gitkeep
