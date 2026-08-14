@@ -1,0 +1,4 @@
+# Windows-only configuration
+{{ if ne .chezmoi.os "windows" }}
+AppData/
+{{ end }}

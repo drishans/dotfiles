@@ -1,8 +1,9 @@
 * text=auto
-.chezmoiignore text eol=lf
+.chezmoiroot text eol=lf
 .gitattributes text eol=lf
 .gitignore text eol=lf
-dot_gitconfig text eol=lf
+home/.chezmoiignore text eol=lf
+home/dot_gitconfig text eol=lf
 *.sh text eol=lf
 *.lua text eol=lf
 *.nix text eol=lf
