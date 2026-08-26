@@ -3,6 +3,9 @@
 Thumbs.db
 *.swp
 *.tmp
+result
+result-*
+.direnv/
 
 # Secrets and mutable application state
 **/.env

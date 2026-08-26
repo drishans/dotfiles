@@ -1,49 +1,121 @@
-# dotfiles
+# Cross-platform dotfiles
 
-Cross-platform workstation configuration managed with [chezmoi](https://www.chezmoi.io/). The repository favors direct target mapping, auditable changes, and minimal bootstrap logic over custom deployment machinery.
+This repository is the source of truth for Drishan's NixOS, NixOS-WSL,
+nix-darwin, Home Manager, and native Windows configuration.
 
-## Bootstrap
+## Ownership
 
-Install chezmoi with the target system's native package manager. For example, on Windows:
+- NixOS and nix-darwin manage operating-system configuration.
+- Home Manager manages user packages, Zsh, and Unix dotfiles.
+- Chezmoi deploys the same source files on native Windows only.
+
+Home Manager references files under `home/`, which is also Chezmoi's source
+root. Shared application configuration therefore has one source without two
+tools trying to own the same target on Unix.
+
+Neovim is managed by Home Manager with plugins and language tools supplied by
+the pinned Nix packages. Its Lua configuration lives under
+`home/dot_config/nvim/`. Git remains installed for repository operations,
+while `gh` adds GitHub authentication, pull requests, issues, releases, and
+API access.
+
+## Layout
+
+```text
+.
+├── flake.nix
+├── flake.lock
+├── hosts/
+│   ├── dOmnix/
+│   ├── dwslnix/
+│   └── macbook/
+├── modules/
+│   ├── hardware/
+│   ├── nixos/
+│   └── wsl/
+├── home-manager/
+│   └── drishan.nix
+└── home/                   # Chezmoi source and shared config data
+```
+
+## NixOS laptop
+
+Preview the new generation before switching:
+
+```sh
+sudo nixos-rebuild test --flake ~/github/dotfiles#dOmnix
+```
+
+Activate it after verifying GNOME, networking, audio, fingerprint support, and
+screen rotation:
+
+```sh
+sudo nixos-rebuild switch --flake ~/github/dotfiles#dOmnix
+```
+
+The host preserves the current GNOME/GDM configuration, hardware configuration,
+sensor firmware, services, packages, swap, and state version. Home Manager adds
+the shared Zsh environment and user-scoped agent tools.
+
+## NixOS-WSL
+
+Clone this repository inside the NixOS distribution, then run:
+
+```sh
+sudo nixos-rebuild test --flake ~/github/dotfiles#dwslnix
+sudo nixos-rebuild switch --flake ~/github/dotfiles#dwslnix
+```
+
+The WSL configuration retains Docker, NVIDIA CDI support, Tailscale, and the
+SGLang Qwen service.
+
+## macOS
+
+The Mac scaffold assumes Apple Silicon. On the MacBook:
+
+```sh
+sudo nix run nix-darwin/master#darwin-rebuild -- \
+  switch --flake ~/github/dotfiles#macbook
+```
+
+After the first activation:
+
+```sh
+sudo darwin-rebuild switch --flake ~/github/dotfiles#macbook
+```
+
+Confirm the Mac's local username, home directory, architecture, and hostname
+before the first activation.
+
+## Windows with Chezmoi
+
+Chezmoi is intentionally retained for native Windows, where Home Manager does
+not apply.
 
 ```powershell
 winget install --id twpayne.chezmoi --exact
-```
-
-On macOS:
-
-```sh
-brew install chezmoi
-```
-
-Initialize the repository, inspect the proposed changes, and apply them:
-
-```sh
 chezmoi init https://github.com/drishans/dotfiles.git
 chezmoi diff
 chezmoi apply
 ```
 
-Review `chezmoi diff` before the first apply on any system.
+The `.chezmoiignore` policy prevents Chezmoi from managing Unix targets.
 
-Use `chezmoi init` rather than a manual clone for the active source directory. Chezmoi selects the appropriate platform-specific data location. A separate working clone, when desired for inspection or development, belongs in `~/code/dotfiles` on macOS or `C:\Users\drishan\code\dotfiles` on Windows.
-
-Chezmoi encodes target filenames that start with a dot in source-state names. For example, `home/dot_config` deploys to `~/.config`, `home/dot_claude` deploys to `~/.claude`, and `home/dot_pi` deploys to `~/.pi`.
-
-## Development workflow
+## Updating and validation
 
 ```sh
-chezmoi update
-chezmoi add ~/.config/example/config
-chezmoi edit ~/.config/example/config
-chezmoi diff
-chezmoi apply
+nix flake update
+nix fmt
+nix flake check --no-build
 ```
 
-`chezmoi update` pulls the latest source state with an autostash/rebase and applies it. Run it before changing dotfiles on a machine that shares this repository.
+Useful shell aliases after Home Manager activation:
 
-## Source-state synchronization
+- `nfu` updates the lockfile.
+- `nrt` tests the current NixOS host.
+- `nrs` switches the current NixOS host.
+- `drs` switches the nix-darwin host.
 
-The managed chezmoi configuration enables automatic commits and pushes for source-state changes made through chezmoi. This keeps routine `chezmoi add` and `chezmoi edit` operations synchronized with the repository.
-
-Automatic synchronization does not replace review. Inspect `chezmoi diff` before applying changes, and use `chezmoi update` before starting work on another machine to avoid avoidable Git conflicts. Configure GitHub write authentication on each machine before making source-state changes.
+Review changes before committing. The repository's Chezmoi configuration can
+automatically commit and push changes made through Chezmoi on Windows, while
+normal Git workflows remain explicit for Nix changes.
