@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.services.sglang-qwen;
   docker = lib.getExe pkgs.docker;
 
@@ -71,19 +72,19 @@
           exec curl --fail-with-body http://127.0.0.1:${toString cfg.port}/v1/chat/completions \
             -H 'Content-Type: application/json' \
             -d '${
-        builtins.toJSON {
-          model = cfg.servedModelName;
-          messages = [
-            {
-              role = "user";
-              content = "Reply with exactly: SGLang is ready";
-            }
-          ];
-          max_tokens = 64;
-          temperature = 0;
-          chat_template_kwargs.enable_thinking = false;
-        }
-      }'
+              builtins.toJSON {
+                model = cfg.servedModelName;
+                messages = [
+                  {
+                    role = "user";
+                    content = "Reply with exactly: SGLang is ready";
+                  }
+                ];
+                max_tokens = 64;
+                temperature = 0;
+                chat_template_kwargs.enable_thinking = false;
+              }
+            }'
           ;;
         *)
           usage
@@ -92,13 +93,12 @@
       esac
     '';
   };
-in {
+in
+{
   options.services.sglang-qwen = {
-    enable =
-      lib.mkEnableOption "the local Qwen3.8 SGLang container"
-      // {
-        default = true;
-      };
+    enable = lib.mkEnableOption "the local Qwen3.8 SGLang container" // {
+      default = true;
+    };
 
     autoStart = lib.mkOption {
       type = lib.types.bool;
@@ -145,13 +145,13 @@ in {
 
     extraArgs = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [];
+      default = [ ];
       description = "Additional arguments appended to `sglang serve`.";
     };
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [control];
+    environment.systemPackages = [ control ];
 
     systemd.services.sglang-qwen = {
       description = "SGLang OpenAI server for local Qwen3.8-27B NVFP4";

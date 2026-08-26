@@ -7,7 +7,7 @@ if wezterm.target_triple:find('windows') then
 end
 config.color_scheme = 'Gruvbox Dark (Gogh)'
 config.font = wezterm.font_with_fallback {
-  'PragmataPro Mono',
+  'Iosevka',
   'Symbols Nerd Font Mono',
 }
 config.hide_tab_bar_if_only_one_tab = true

@@ -17,7 +17,11 @@ Neovim is managed by Home Manager with plugins and language tools supplied by
 the pinned Nix packages. Its Lua configuration lives under
 `home/dot_config/nvim/`. Git remains installed for repository operations,
 while `gh` adds GitHub authentication, pull requests, issues, releases, and
-API access.
+API access. Home Manager configures Git to use the authenticated GitHub CLI as
+its HTTPS credential helper.
+
+WezTerm selects Iosevka as its primary font and Symbols Nerd Font Mono as a
+glyph fallback. Neovim and Starship inherit the terminal font.
 
 ## Layout
 
@@ -33,8 +37,7 @@ API access.
 │   ├── hardware/
 │   ├── nixos/
 │   └── wsl/
-├── home-manager/
-│   └── drishan.nix
+├── home-manager/           # Modular user environment
 └── home/                   # Chezmoi source and shared config data
 ```
 
@@ -55,7 +58,8 @@ sudo nixos-rebuild switch --flake ~/github/dotfiles#dOmnix
 
 The host preserves the current GNOME/GDM configuration, hardware configuration,
 sensor firmware, services, packages, swap, and state version. Home Manager adds
-the shared Zsh environment and user-scoped agent tools.
+the shared Zsh environment and user-scoped agent tools. Iosevka and the Nerd
+Font symbols fallback are installed for terminal applications.
 
 ## NixOS-WSL
 
@@ -67,11 +71,15 @@ sudo nixos-rebuild switch --flake ~/github/dotfiles#dwslnix
 ```
 
 The WSL configuration retains Docker, NVIDIA CDI support, Tailscale, and the
-SGLang Qwen service.
+SGLang Qwen service. Agent packages are intentionally omitted from this
+model-serving host, while the portable agent configuration remains synchronized
+with the other machines.
 
 ## macOS
 
-The Mac scaffold assumes Apple Silicon. On the MacBook:
+The Mac scaffold assumes Apple Silicon. It can coexist with a Brew-first setup:
+nix-darwin owns system defaults and Home Manager dotfiles, while Brew can keep
+managing existing native applications and agent installations. On the MacBook:
 
 ```sh
 sudo nix run nix-darwin/master#darwin-rebuild -- \
@@ -116,6 +124,5 @@ Useful shell aliases after Home Manager activation:
 - `nrs` switches the current NixOS host.
 - `drs` switches the nix-darwin host.
 
-Review changes before committing. The repository's Chezmoi configuration can
-automatically commit and push changes made through Chezmoi on Windows, while
-normal Git workflows remain explicit for Nix changes.
+Review changes before committing. Chezmoi does not automatically commit or push
+Windows changes, so Git history remains explicit on every platform.

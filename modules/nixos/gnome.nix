@@ -1,4 +1,9 @@
-{...}: {
+{ pkgs, ... }: {
+  fonts.packages = with pkgs; [
+    iosevka
+    nerd-fonts.symbols-only
+  ];
+
   services = {
     xserver.enable = true;
     displayManager.gdm.enable = true;

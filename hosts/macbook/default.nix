@@ -2,12 +2,14 @@
   pkgs,
   username,
   ...
-}: {
-  nixpkgs = {
-    hostPlatform = "aarch64-darwin";
-    config.allowUnfree = true;
-  };
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+}:
+{
+  nixpkgs.hostPlatform = "aarch64-darwin";
+
+  fonts.packages = with pkgs; [
+    iosevka
+    nerd-fonts.symbols-only
+  ];
 
   system = {
     primaryUser = username;
