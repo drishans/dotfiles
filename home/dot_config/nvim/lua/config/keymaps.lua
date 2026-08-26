@@ -14,7 +14,9 @@ map("n", "[b", "<cmd>bprevious<CR>", { desc = "Previous buffer" })
 map("n", "]b", "<cmd>bnext<CR>", { desc = "Next buffer" })
 map("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Delete buffer" })
 
-map("n", "<leader>f", function()
+-- Not <leader>f: that is the Telescope prefix, and the overlap makes every
+-- <leader>f* chord wait out timeoutlen before resolving.
+map("n", "<leader>cf", function()
 	require("conform").format({ async = true, lsp_format = "fallback" })
 end, { desc = "Format buffer" })
 

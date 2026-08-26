@@ -1,13 +1,10 @@
 { ... }: {
   programs.git = {
     enable = true;
-    settings = {
-      user = {
-        email = "43171376+drishans@users.noreply.github.com";
-        name = "drishans";
-      };
-      credential."https://github.com".helper = "!gh auth git-credential";
-      windows.appendAtomically = false;
-    };
+
+    # home/dot_gitconfig is the single source: Chezmoi cannot read Nix, so that
+    # file has to exist for Windows regardless. Include it rather than restating
+    # the same settings here.
+    includes = [ { path = ../home/dot_gitconfig; } ];
   };
 }

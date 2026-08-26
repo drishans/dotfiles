@@ -46,7 +46,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    alejandra
     btop
     chatterino7
     dust
