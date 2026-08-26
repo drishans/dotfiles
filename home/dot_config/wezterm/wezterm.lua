@@ -10,6 +10,11 @@ config.font = wezterm.font_with_fallback {
   'Iosevka',
   'Symbols Nerd Font Mono',
 }
+-- Already the default, but pinned so a theme or future default cannot
+-- introduce translucency.
+config.window_background_opacity = 1.0
+config.text_background_opacity = 1.0
+
 config.hide_tab_bar_if_only_one_tab = true
 config.audible_bell = 'Disabled'
 config.scrollback_lines = 10000

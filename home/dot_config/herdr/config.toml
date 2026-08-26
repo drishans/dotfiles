@@ -6,3 +6,8 @@ prefix = "ctrl+b"
 [ui]
 # Agents panel order: explicit choice of "spaces" (grouped by space, the default) over "priority".
 agent_panel_sort = "spaces"
+
+# Default is 3 lines per wheel notch, which a high-resolution trackpad turns
+# into a blur. Herdr captures the mouse itself, so the terminal's own scroll
+# multiplier does not apply and this is the only lever.
+mouse_scroll_lines = 1
