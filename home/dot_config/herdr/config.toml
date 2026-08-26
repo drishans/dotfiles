@@ -11,3 +11,9 @@ agent_panel_sort = "spaces"
 # into a blur. Herdr captures the mouse itself, so the terminal's own scroll
 # multiplier does not apply and this is the only lever.
 mouse_scroll_lines = 1
+
+[theme]
+# The deployed config.toml is a read-only /nix/store symlink, so herdr cannot
+# save a theme picked in Settings ("readonly, failed to set"). Declare it here
+# instead. Anything else changed in the Settings UI needs the same treatment.
+name = "gruvbox"

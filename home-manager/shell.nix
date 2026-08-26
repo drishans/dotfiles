@@ -13,6 +13,14 @@
     "wezterm/wezterm.lua".source = ../home/dot_config/wezterm/wezterm.lua;
   };
 
+  # GNOME 50 delegates "open a terminal" to xdg-terminal-exec, which is not
+  # installed by default: org.gnome.desktop.default-applications.terminal is
+  # already set to xdg-terminal-exec, so nothing answers it until this is on.
+  xdg.terminal-exec = lib.mkIf (isGui && pkgs.stdenv.hostPlatform.isLinux) {
+    enable = true;
+    settings.default = [ "org.wezfurlong.wezterm.desktop" ];
+  };
+
   programs = {
     starship = {
       enable = true;
