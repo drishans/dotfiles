@@ -21,6 +21,10 @@ in
   # Configuration is portable and follows the user even where the binaries
   # come from Brew, native installers, or are not installed yet.
   home.file = {
+    # One instruction file, deployed under the name each agent looks for.
+    ".claude/CLAUDE.md".source = ../home/AGENTS.md;
+    ".codex/AGENTS.md".source = ../home/AGENTS.md;
+
     ".claude/settings.json".source = ../home/dot_claude/settings.json;
     ".pi/agent/models.json".source = ../home/dot_pi/agent/models.json;
     ".pi/agent/settings.json".source = ../home/dot_pi/agent/settings.json;
