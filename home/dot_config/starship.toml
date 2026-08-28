@@ -1,5 +1,5 @@
 "$schema" = 'https://starship.rs/config-schema.json'
-
+add_newline = false
 format = """
 [](color_orange)\
 $os\
@@ -53,25 +53,18 @@ format = "[ $symbol]($style)"
 Windows = "󰍲"
 Ubuntu = "󰕈"
 SUSE = ""
-Raspbian = "󰐿"
 Mint = "󰣭"
 Macos = "󰀵"
-Manjaro = ""
 Linux = "󰌽"
 Gentoo = "󰣨"
 Fedora = "󰣛"
-Alpine = ""
 Amazon = ""
 Android = ""
 AOSC = ""
 Arch = "󰣇"
-Artix = "󰣇"
-EndeavourOS = ""
 CentOS = ""
 Debian = "󰣚"
 Redhat = "󱄛"
-RedHatEnterprise = "󱄛"
-Pop = ""
 NixOS = ""
 
 [username]
