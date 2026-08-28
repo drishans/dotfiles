@@ -63,6 +63,17 @@ sensor firmware, services, packages, swap, and state version. Home Manager adds
 the shared Zsh environment and user-scoped agent tools. Iosevka and the Nerd
 Font symbols fallback are installed for terminal applications.
 
+The machine-specific Intel sensor-hub firmware is not redistributed in this
+repository. Before the first laptop rebuild, copy `ishC_SI_20260309.bin` from
+the private backup and add the hash-verified file to the Nix store:
+
+```sh
+nix-store --add-fixed sha256 /path/to/ishC_SI_20260309.bin
+```
+
+The expected SHA-256 is
+`4041198cddf5a712306339de7ec417d46363338f12a5b3a933aed555e72f02b9`.
+
 ## NixOS-WSL
 
 Clone this repository inside the NixOS distribution, then run:

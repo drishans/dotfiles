@@ -6,6 +6,7 @@ Thumbs.db
 result
 result-*
 .direnv/
+modules/hardware/ishC_*.bin
 
 # Secrets and mutable application state
 **/.env
