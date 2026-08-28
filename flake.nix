@@ -20,6 +20,10 @@
       url = "github:ilysenko/codex-desktop-linux";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -30,10 +34,34 @@
       nix-darwin,
       nixos-wsl,
       codex-desktop-linux,
+      treefmt-nix,
       ...
     }:
     let
       username = "drishan";
+      systems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+
+      treefmtEval = forAllSystems (
+        system:
+        treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} {
+          projectRootFile = "flake.nix";
+
+          programs = {
+            nixfmt.enable = true;
+            prettier.enable = true;
+            stylua.enable = true;
+            taplo.enable = true;
+          };
+
+          settings.formatter.nixfmt.excludes = [
+            "hosts/dOmnix/hardware-configuration.nix"
+          ];
+        }
+      );
 
       homeModule =
         {
@@ -118,19 +146,10 @@
         ];
       };
 
-      formatter =
-        let
-          formatterFor =
-            system:
-            nixpkgs.legacyPackages.${system}.nixfmt-tree.override {
-              settings.formatter.nixfmt.excludes = [
-                "hosts/dOmnix/hardware-configuration.nix"
-              ];
-            };
-        in
-        {
-          x86_64-linux = formatterFor "x86_64-linux";
-          aarch64-darwin = formatterFor "aarch64-darwin";
-        };
+      formatter = forAllSystems (system: treefmtEval.${system}.config.build.wrapper);
+
+      checks = forAllSystems (system: {
+        formatting = treefmtEval.${system}.config.build.check self;
+      });
     };
 }

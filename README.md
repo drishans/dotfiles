@@ -18,7 +18,9 @@ the pinned Nix packages. Its Lua configuration lives under
 `home/dot_config/nvim/`. Git remains installed for repository operations,
 while `gh` adds GitHub authentication, pull requests, issues, releases, and
 API access. Home Manager configures Git to use the authenticated GitHub CLI as
-its HTTPS credential helper.
+its HTTPS credential helper. Global agent instructions live under
+`home/dot_codex/AGENTS.md`; Home Manager shares them with Codex and Claude,
+while Chezmoi deploys them to Codex on Windows.
 
 WezTerm selects Iosevka as its primary font and Symbols Nerd Font Mono as a
 glyph fallback. Neovim and Starship inherit the terminal font.
@@ -114,8 +116,12 @@ The `.chezmoiignore` policy prevents Chezmoi from managing Unix targets.
 ```sh
 nix flake update
 nix fmt
-nix flake check --no-build
+nix flake check
 ```
+
+The formatter covers Nix, Lua, TOML, JSON, Markdown, and YAML. GitHub Actions
+runs formatting and configuration checks on Linux and evaluates the macOS
+configuration on a native runner.
 
 Useful shell aliases after Home Manager activation:
 

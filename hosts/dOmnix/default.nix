@@ -33,6 +33,7 @@
   };
 
   services = {
+    fwupd.enable = true;
     tailscale.enable = true;
     openssh = {
       enable = true;
@@ -63,7 +64,6 @@
     powertop
     python3
     rustup
-    tmux
     tree
     usbutils
     vesktop

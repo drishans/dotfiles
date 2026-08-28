@@ -9,4 +9,3 @@
 - Hold user interfaces to a pixel-perfect standard during end-to-end testing and address clear visual defects encountered along the way.
 - Apply the same standard to engineering quality, including lint failures, test failures, and flaky tests.
 - Before using dynamic workflows, ultra code, or any harness feature that immediately spawns a large swarm of subagents, explain the tradeoffs and obtain explicit approval.
-
