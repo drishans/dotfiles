@@ -1,7 +1,6 @@
 # Cross-platform dotfiles
 
-Configuration for NixOS, NixOS-WSL, nix-darwin, Home Manager, and native
-Windows.
+Configuration for Nix(OS/WSL/darwin) and Home Manager for my various computers.
 
 ## Layout
 
