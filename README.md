@@ -9,9 +9,9 @@ Configuration for Nix(OS/WSL/darwin) and Home Manager for my various computers.
 ├── flake.nix
 ├── flake.lock
 ├── hosts/
-│   ├── dOmnix/
-│   ├── dwslnix/
-│   └── macbook/
+│   ├── dOmnix/             # OmniBook Ultra Flip
+│   ├── dwslnix/            # 5090 PC running WSL
+│   └── macbook/            # M1 Max MacBook Pro
 ├── modules/
 │   ├── hardware/
 │   ├── nixos/
