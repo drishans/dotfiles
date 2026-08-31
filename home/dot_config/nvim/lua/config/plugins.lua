@@ -1,5 +1,7 @@
 require("gitsigns").setup()
 
+require("diffview").setup()
+
 require("which-key").setup()
 
 require("lualine").setup({

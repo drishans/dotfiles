@@ -5,3 +5,15 @@
 	helper = !gh auth git-credential
 [windows]
 	appendAtomically = false
+[diff]
+	algorithm = histogram
+[fetch]
+	prune = true
+[merge]
+	conflictStyle = zdiff3
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true
+[rerere]
+	enabled = true

@@ -37,6 +37,7 @@
       nvim-lspconfig
       blink-cmp
       conform-nvim
+      diffview-nvim
       gitsigns-nvim
       which-key-nvim
       lualine-nvim
