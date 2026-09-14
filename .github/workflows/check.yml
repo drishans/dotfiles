@@ -3,8 +3,7 @@ name: Check
 on:
   pull_request:
   push:
-    branches:
-      - main
+    branches: [main]
 
 permissions:
   contents: read
@@ -16,7 +15,12 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: cachix/install-nix-action@v31
-      - run: nix flake check
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check formatting
+        run: nix fmt -- --ci
+      - name: Evaluate flake
+        run: nix flake check --no-build
 
   macos:
     name: nix-darwin
@@ -24,4 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: cachix/install-nix-action@v31
-      - run: nix flake check
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Evaluate flake
+        run: nix flake check --no-build
