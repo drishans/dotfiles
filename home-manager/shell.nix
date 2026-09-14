@@ -39,7 +39,7 @@
         cat = "bat";
         ll = "eza -la";
         ls = "eza";
-        nfu = "nix flake update ~/github/dotfiles";
+        nfu = "nix flake update --flake ~/github/dotfiles";
       }
       // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
         nrs = "sudo nixos-rebuild switch --flake ~/github/dotfiles#${hostName}";
