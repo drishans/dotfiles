@@ -65,6 +65,7 @@
     python3
     rustup
     tree
+    transmission_4-gtk
     usbutils
     vesktop
     vim
