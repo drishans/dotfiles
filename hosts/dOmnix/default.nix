@@ -30,6 +30,12 @@
     codexDesktopLinux.enable = true;
     firefox.enable = true;
     mosh.enable = true;
+    steam.enable = true;
+  };
+
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
   };
 
   services = {
