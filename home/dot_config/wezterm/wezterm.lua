@@ -19,7 +19,7 @@ config.window_background_opacity = 0.90
 config.window_decorations = "RESIZE"
 config.hide_tab_bar_if_only_one_tab = true
 config.initial_cols = 150
-config.initial_rows = 42
+config.initial_rows = 36
 config.audible_bell = "Disabled"
 config.scrollback_lines = 10000
 
