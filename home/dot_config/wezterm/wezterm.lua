@@ -18,8 +18,8 @@ config.window_background_opacity = 0.90
 -- not need a tab bar, while RESIZE retains a clean, resizable window frame.
 config.window_decorations = "RESIZE"
 config.hide_tab_bar_if_only_one_tab = true
-config.initial_cols = 120
-config.initial_rows = 36
+config.initial_cols = 150
+config.initial_rows = 42
 config.audible_bell = "Disabled"
 config.scrollback_lines = 10000
 
