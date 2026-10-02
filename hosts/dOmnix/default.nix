@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, username, ... }: {
   imports = [
     ./hardware-configuration.nix
     ../../modules/hardware/dOmnix.nix
@@ -33,6 +33,12 @@
     steam.enable = true;
   };
 
+  users.users.${username}.extraGroups = [ "input" ];
+
+  services.udev.extraRules = ''
+    KERNEL=="uinput", GROUP="input", MODE="0660"
+  '';
+
   virtualisation.docker.rootless = {
     enable = true;
     setSocketVariable = true;
@@ -60,6 +66,7 @@
     gcc
     ghostty
     gnumake
+    handy
     jq
     killall
     lsof
