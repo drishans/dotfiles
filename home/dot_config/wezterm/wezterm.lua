@@ -14,11 +14,13 @@ config.font = wezterm.font_with_fallback({
 -- Try values live without a rebuild:
 --   wezterm --config window_background_opacity=0.85
 config.window_background_opacity = 0.90
+-- Use XWayland so touch input works without a special launch command.
+config.enable_wayland = false
 -- Keep the window chrome and terminal content separate: one-tab sessions do
 -- not need a tab bar, while RESIZE retains a clean, resizable window frame.
 config.window_decorations = "RESIZE"
 config.hide_tab_bar_if_only_one_tab = true
-config.initial_cols = 154
+config.initial_cols = 169
 config.initial_rows = 38
 config.audible_bell = "Disabled"
 config.scrollback_lines = 10000

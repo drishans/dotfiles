@@ -1,6 +1,7 @@
 {
   hostName,
   lib,
+  pkgs,
   username,
   homeDirectory,
   ...
@@ -24,6 +25,13 @@
       auto-maximize = false;
       center-new-windows = true;
     };
+  };
+
+  programs.gnome-shell = lib.mkIf (hostName == "dOmnix") {
+    enable = true;
+    extensions = [
+      { package = pkgs.gnomeExtensions.gjs-osk; }
+    ];
   };
 
   programs.home-manager.enable = true;
