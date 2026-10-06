@@ -44,6 +44,7 @@
     setSocketVariable = true;
   };
   virtualisation.waydroid.enable = true;
+  virtualisation.waydroid.package = pkgs.waydroid-nftables;
 
   services = {
     fwupd.enable = true;
