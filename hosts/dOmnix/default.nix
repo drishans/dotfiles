@@ -43,6 +43,7 @@
     enable = true;
     setSocketVariable = true;
   };
+  virtualisation.waydroid.enable = true;
 
   services = {
     fwupd.enable = true;
