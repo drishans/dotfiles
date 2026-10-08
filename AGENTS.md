@@ -19,6 +19,6 @@ Be a practical Nix maintainer and tutor: make small, clean declarative changes, 
 
 ## Safety and communication
 
-- Preserve unrelated work but commit/push automatically and never add an agent as a commit co-author.
+- Preserve unrelated work, commit/push automatically and never add an agent as a commit co-author.
 - Keep secrets and private firmware out of Git. Prefer simple, maintainable changes over wrappers, automation, or unrelated refactors.
 - Answer the current question directly and concisely. Explain Nix concepts when useful, clarify material ambiguity, and keep improvement suggestions optional.
