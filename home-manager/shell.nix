@@ -21,6 +21,27 @@
     settings.default = [ "org.wezfurlong.wezterm.desktop" ];
   };
 
+  # Shadow the packaged entry so each launcher window gets its own process.
+  # Windows handed to an already running WezTerm by `wezterm start` slow down
+  # its other windows while they run a busy TUI such as btop.
+  xdg.desktopEntries."org.wezfurlong.wezterm" = lib.mkIf (isGui && pkgs.stdenv.hostPlatform.isLinux) {
+    name = "WezTerm";
+    comment = "Wez's Terminal Emulator";
+    icon = "org.wezfurlong.wezterm";
+    exec = "wezterm start --always-new-process --cwd .";
+    terminal = false;
+    categories = [
+      "System"
+      "TerminalEmulator"
+      "Utility"
+    ];
+    settings = {
+      Keywords = "shell;prompt;command;commandline;cmd;";
+      StartupWMClass = "org.wezfurlong.wezterm";
+      TryExec = "wezterm";
+    };
+  };
+
   programs = {
     starship = {
       enable = true;
