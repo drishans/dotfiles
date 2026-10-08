@@ -31,6 +31,7 @@
     enable = true;
     extensions = [
       { package = pkgs.gnomeExtensions.gjs-osk; }
+      { package = pkgs.gnomeExtensions.copyous; }
     ];
   };
 
