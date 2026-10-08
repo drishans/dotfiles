@@ -31,3 +31,18 @@ From the repository root:
 sudo nixos-rebuild test --flake .#dOmnix
 sudo nixos-rebuild switch --flake .#dOmnix
 ```
+
+## Handy text input
+
+The host enables the NixOS ydotool module, which provides `ydotoold`, the client,
+and `YDOTOOL_SOCKET`. The user is in the `ydotool` group so Handy can inject
+keyboard input without GNOME's remote-interaction permission prompt.
+
+After rebuilding, log out and back in to pick up the group and environment
+changes, then restart Handy. Keep Handy's paste method on **Direct**. It can
+automatically detect ydotool; if it selects another tool, press `Ctrl+Shift+D`
+in Handy to reveal Debug and select **ydotool** as the typing tool.
+
+This grants applications running as the user persistent keyboard/mouse injection
+access through the ydotool socket. It does not disable GNOME's portal permissions
+globally.

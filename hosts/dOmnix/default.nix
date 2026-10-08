@@ -37,9 +37,14 @@
     firefox.enable = true;
     mosh.enable = true;
     steam.enable = true;
+    # Let Handy type on GNOME Wayland without the remote-interaction portal.
+    ydotool.enable = true;
   };
 
-  users.users.${username}.extraGroups = [ "input" ];
+  users.users.${username}.extraGroups = [
+    "input"
+    "ydotool"
+  ];
 
   services.udev.extraRules = ''
     KERNEL=="uinput", GROUP="input", MODE="0660"
