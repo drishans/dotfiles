@@ -1,5 +1,0 @@
-# Home Manager owns Unix targets. Chezmoi is the Windows deployment adapter.
-dot_config/nvim/
-{{ if ne .chezmoi.os "windows" }}
-*
-{{ end }}

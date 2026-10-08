@@ -2,9 +2,8 @@
   programs.git = {
     enable = true;
 
-    # home/dot_gitconfig is the single source: Chezmoi cannot read Nix, so that
-    # file has to exist for Windows regardless. Include it rather than restating
-    # the same settings here.
-    includes = [ { path = ../home/dot_gitconfig; } ];
+    # config/git/config stays a plain gitconfig so it can also be copied to
+    # Windows by hand. Include it rather than restating the same settings here.
+    includes = [ { path = ../config/git/config; } ];
   };
 }

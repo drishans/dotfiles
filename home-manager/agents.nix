@@ -22,15 +22,15 @@ in
   # come from Brew, native installers, or are not installed yet.
   home.file = {
     # One instruction file, deployed under the name each agent looks for.
-    ".claude/CLAUDE.md".source = ../home/dot_codex/AGENTS.md;
-    ".codex/AGENTS.md".source = ../home/dot_codex/AGENTS.md;
+    ".claude/CLAUDE.md".source = ../config/agents/AGENTS.md;
+    ".codex/AGENTS.md".source = ../config/agents/AGENTS.md;
 
-    ".claude/settings.json".source = ../home/dot_claude/settings.json;
-    ".pi/agent/models.json".source = ../home/dot_pi/agent/models.json;
-    ".pi/agent/settings.json".source = ../home/dot_pi/agent/settings.json;
+    ".claude/settings.json".source = ../config/claude/settings.json;
+    ".pi/agent/models.json".source = ../config/pi/models.json;
+    ".pi/agent/settings.json".source = ../config/pi/settings.json;
   };
 
   xdg.configFile = {
-    "herdr/config.toml".source = ../home/dot_config/herdr/config.toml;
+    "herdr/config.toml".source = ../config/herdr/config.toml;
   };
 }

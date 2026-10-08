@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  xdg.configFile."nvim".source = ../home/dot_config/nvim;
+  xdg.configFile."nvim".source = ../config/nvim;
 
   programs.neovim = {
     enable = true;

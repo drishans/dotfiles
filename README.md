@@ -17,7 +17,7 @@ Configuration for Nix(OS/WSL/darwin) and Home Manager for my various computers.
 │   ├── nixos/
 │   └── wsl/
 ├── home-manager/           # User environment
-└── home/                   # Shared dotfiles and Chezmoi source
+└── config/                 # App configs linked by Home Manager
 ```
 
 ## NixOS
@@ -46,14 +46,11 @@ sudo darwin-rebuild switch --flake .#macbook
 
 ## Windows
 
-Chezmoi deploys the shared dotfiles on native Windows:
-
-```powershell
-winget install --id twpayne.chezmoi --exact
-chezmoi init https://github.com/drishans/dotfiles.git
-chezmoi diff
-chezmoi apply
-```
+Native Windows is not managed automatically. Copy
+[`config/windows-terminal/settings.json`](config/windows-terminal/settings.json)
+to
+`%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json`.
+`config/git/config` and `config/wezterm/wezterm.lua` also work on Windows.
 
 ## Maintenance
 

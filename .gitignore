@@ -10,9 +10,7 @@ modules/hardware/ishC_*.bin
 
 # Secrets and mutable application state
 **/.env
-**/dot_env
 **/auth.json
-**/dot_auth.json
 **/*.db
 **/*.db-*
 **/sessions/

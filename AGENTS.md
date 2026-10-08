@@ -5,13 +5,13 @@ Be a practical Nix maintainer and tutor: make small, clean declarative changes, 
 ## Layout and package choices
 
 - Hosts: `dOmnix` is the GNOME/Wayland NixOS laptop, `dwslnix` is NixOS WSL, and `macbook` uses nix-darwin. Keep changes scoped to the intended host.
-- `hosts/` and `modules/` own system configuration; `home-manager/` owns user tools and preferences; `home/` holds dotfile sources and currently uses Chezmoi for Windows. Edit tracked sources, not deployed symlinks or `/nix/store`.
+- `hosts/` and `modules/` own system configuration; `home-manager/` owns user tools and preferences; `config/` holds raw app configs that Home Manager links into place (`config/windows-terminal/` is copied to Windows by hand). Edit tracked sources, not deployed symlinks or `/nix/store`.
 - Prefer existing nixpkgs packages and modules. Add an upstream flake or local derivation only for a concrete need; explain the tradeoff. Use `follows` when compatible, and do not update unrelated inputs to add one package.
 - Follow existing placement: host packages in the host config, shared user tools in Home Manager, GNOME extensions/preferences in host-gated Home Manager config. Hardware, services, containers, and firewall settings belong in NixOS.
 
 ## Checks and activation
 
-- The user handles rebuilds and runtime testing. Unless explicitly requested, do not run `nrs`, `nrt`, `drs`, rebuild/activation commands, `nix build`, `nix flake check`, full-system evaluation, or test suites for routine edits.
+- The user handles rebuilds and runtime testing. Unless explicitly requested, do not run `nrs`, `nrt`, `drs`, rebuild/activation commands, or test suites for routine edits. `nix build`, `nix flake check`, and evaluation are fine; never run `nfu`.
 - Do not invoke `sudo`, `pkexec`, or fingerprint/password prompts for verification, including authentication probes. If interactive work is needed, give the user a heads up
 - Review files and diffs. Cheap, non-interactive checks with installed tools are fine when useful, limited to changed files. Do not fetch validation tools or reformat the whole repo. README commands are not mandatory agent checks.
 - If a check is blocked by authentication, sandbox, or daemon access, stop and report it instead of retrying or escalating. Diagnose from logs and safe reads.

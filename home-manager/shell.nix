@@ -7,10 +7,10 @@
 }:
 {
   xdg.configFile = {
-    "starship.toml".source = ../home/dot_config/starship.toml;
+    "starship.toml".source = ../config/starship.toml;
   }
   // lib.optionalAttrs isGui {
-    "wezterm/wezterm.lua".source = ../home/dot_config/wezterm/wezterm.lua;
+    "wezterm/wezterm.lua".source = ../config/wezterm/wezterm.lua;
   };
 
   # GNOME 50 delegates "open a terminal" to xdg-terminal-exec, which is not
