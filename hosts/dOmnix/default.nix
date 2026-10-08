@@ -1,4 +1,10 @@
-{ pkgs, username, ... }: {
+{
+  inputs,
+  pkgs,
+  username,
+  ...
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ../../modules/hardware/dOmnix.nix
@@ -79,6 +85,7 @@
     powertop
     python3
     rustup
+    inputs.sidra.packages.${pkgs.stdenv.hostPlatform.system}.default
     tree
     transmission_4-gtk
     usbutils
