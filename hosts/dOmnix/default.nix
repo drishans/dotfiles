@@ -56,6 +56,9 @@
   };
   virtualisation.waydroid.enable = true;
   virtualisation.waydroid.package = pkgs.waydroid-nftables;
+  # waydroid-helper installs ARM translation; its root mount daemon is D-Bus activated.
+  systemd.packages = [ pkgs.waydroid-helper ];
+  services.dbus.packages = [ pkgs.waydroid-helper ];
 
   services = {
     fwupd.enable = true;
@@ -97,6 +100,7 @@
     vesktop
     vim
     vlc
+    waydroid-helper
     wezterm
     wget
   ];
