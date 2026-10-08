@@ -16,9 +16,6 @@ config.font = wezterm.font_with_fallback({
 config.window_background_opacity = 0.90
 -- Use XWayland so touch input works without a special launch command.
 config.enable_wayland = false
--- The OpenGL renderer stalls under XWayland once several windows share one
--- GUI process, slowing every window. WebGpu (Vulkan) does not.
-config.front_end = "WebGpu"
 -- Keep the window chrome and terminal content separate: one-tab sessions do
 -- not need a tab bar, while RESIZE retains a clean, resizable window frame.
 config.window_decorations = "RESIZE"
