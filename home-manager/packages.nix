@@ -6,6 +6,7 @@
     clang-tools
     eza
     fd
+    ffmpeg
     fzf
     gh
     lua-language-server
@@ -19,6 +20,7 @@
     rustfmt
     stylua
     typescript-language-server
+    yt-dlp
     zoxide
   ];
 }
