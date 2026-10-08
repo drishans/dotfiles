@@ -11,8 +11,9 @@
     ../../modules/nixos/gnome.nix
   ];
 
+  home-manager.users.${username}.imports = [ ../../home-manager/gnome.nix ];
+
   networking = {
-    hostName = "dOmnix";
     networkmanager.enable = true;
     firewall.trustedInterfaces = [ "tailscale0" ];
   };
@@ -83,7 +84,6 @@
     ghostty
     gnumake
     handy
-    jq
     killall
     lsof
     ncdu
@@ -98,7 +98,6 @@
     transmission_4-gtk
     usbutils
     vesktop
-    vim
     vlc
     waydroid-helper
     wezterm

@@ -10,13 +10,10 @@
 
   # NVIDIA's WSL utilities and Python/CUDA wheels use the conventional ELF
   # interpreter and expect the WSL driver libraries on the loader path.
-  programs.nix-ld = {
-    enable = true;
-    libraries = with pkgs; [
-      stdenv.cc.cc
-      zlib
-    ];
-  };
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc
+    zlib
+  ];
 
   environment.sessionVariables.LD_LIBRARY_PATH = [ "/usr/lib/wsl/lib" ];
 

@@ -13,9 +13,6 @@
     defaultUser = username;
   };
 
-  # Large pulled images (SGLang et al.) make this worth keeping on.
-  nix.settings.auto-optimise-store = true;
-
   users.users.${username}.extraGroups = [ "docker" ];
 
   # Join WSL as its own tailnet node, then use `tailscale serve` to proxy
@@ -28,6 +25,5 @@
   environment.systemPackages = with pkgs; [
     curl
     docker-compose
-    jq
   ];
 }

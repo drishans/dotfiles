@@ -96,9 +96,7 @@ let
 in
 {
   options.services.sglang-qwen = {
-    enable = lib.mkEnableOption "the local Qwen3.8 SGLang container" // {
-      default = true;
-    };
+    enable = lib.mkEnableOption "the local Qwen3.8 SGLang container";
 
     autoStart = lib.mkOption {
       type = lib.types.bool;

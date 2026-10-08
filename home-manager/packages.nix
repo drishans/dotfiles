@@ -9,6 +9,7 @@
     ffmpeg
     fzf
     gh
+    jq
     lua-language-server
     nil
     nixfmt
@@ -21,6 +22,5 @@
     stylua
     typescript-language-server
     yt-dlp
-    zoxide
   ];
 }
