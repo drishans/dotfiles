@@ -4,10 +4,8 @@
     bat
     black
     clang-tools
-    eza
     fd
     ffmpeg
-    fzf
     gh
     jq
     lua-language-server
@@ -17,8 +15,6 @@
     pyright
     rbw
     ripgrep
-    rust-analyzer
-    rustfmt
     stylua
     typescript-language-server
     yt-dlp

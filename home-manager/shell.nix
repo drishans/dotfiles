@@ -43,6 +43,15 @@
   };
 
   programs = {
+    # Per-project toolchains: a flake devShell plus `use flake` in .envrc.
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
+    # Also defines ls, la, lt, and lla; ll below overrides its default.
+    eza.enable = true;
+    # Ctrl-R history, Ctrl-T file, and Alt-C directory search.
+    fzf.enable = true;
     starship = {
       enable = true;
       enableZshIntegration = true;
@@ -59,7 +68,6 @@
       shellAliases = {
         cat = "bat";
         ll = "eza -la";
-        ls = "eza";
         nfu = "nix flake update --flake ~/github/dotfiles";
       }
       // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {

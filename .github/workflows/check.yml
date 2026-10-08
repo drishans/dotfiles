@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   linux:
-    name: NixOS and formatting
+    name: Formatting and evaluation
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -21,14 +21,6 @@ jobs:
         run: nix fmt -- --ci
       - name: Evaluate flake
         run: nix flake check --no-build
-
-  macos:
-    name: nix-darwin
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: cachix/install-nix-action@v31
-        with:
-          github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Evaluate flake
-        run: nix flake check --no-build
+      # flake check skips darwinConfigurations, and evaluation needs no macOS runner.
+      - name: Evaluate nix-darwin
+        run: nix eval --raw .#darwinConfigurations.macbook.system.drvPath
