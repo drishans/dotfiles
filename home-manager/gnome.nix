@@ -13,6 +13,11 @@
     "org/gnome/shell/extensions/copyous" = {
       open-clipboard-dialog-shortcut = [ "<Super>v" ];
     };
+    # Hide Cursor already toggles pointer visibility; letting Wiggly do the same
+    # makes them undo each other's hide requests mid-wiggle.
+    "org/gnome/shell/extensions/wiggly" = {
+      hide-cursor = false;
+    };
   };
 
   programs.gnome-shell = {
@@ -20,6 +25,8 @@
     extensions = [
       { package = pkgs.gnomeExtensions.gjs-osk; }
       { package = pkgs.gnomeExtensions.copyous; }
+      { package = pkgs.gnomeExtensions.hide-cursor; }
+      { package = pkgs.gnomeExtensions.wiggly; }
     ];
   };
 }
