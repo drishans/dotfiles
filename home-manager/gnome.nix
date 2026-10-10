@@ -17,6 +17,8 @@ in
   # Also sets the default Xcursor theme, so XWayland apps such as WezTerm match.
   home.pointerCursor = cursor // {
     enable = true;
+    # XCURSOR_SIZE for XWayland apps such as WezTerm, doubled for the 2x display.
+    x11.size = 48;
   };
 
   dconf.settings = {
