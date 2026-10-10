@@ -6,6 +6,12 @@ let
     name = "Bibata-Modern-Classic";
     size = 24;
   };
+  # Wiggly draws its magnified cursor from an image, so recolor Bibata's arrow
+  # source the same way its Modern Classic build does.
+  wigglyCursor = pkgs.runCommand "bibata-modern-classic-left-ptr.svg" { } ''
+    sed -e 's/#00FF00/#000000/g' -e 's/#0000FF/#FFFFFF/g' \
+      ${pkgs.bibata-cursors.src}/svg/modern/left_ptr.svg > $out
+  '';
 in
 {
   # Also sets the default Xcursor theme, so XWayland apps such as WezTerm match.
@@ -25,6 +31,9 @@ in
     # Free Super+V from the notification list (Super+M still opens it) for Clipboard Indicator.
     "org/gnome/shell/keybindings" = {
       toggle-message-tray = [ "<Super>m" ];
+    };
+    "org/gnome/shell/extensions/wiggly" = {
+      cursor-path = "${wigglyCursor}";
     };
     "org/gnome/shell/extensions/clipboard-indicator" = {
       toggle-menu = [ "<Super>v" ];
