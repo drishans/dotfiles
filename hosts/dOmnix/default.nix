@@ -83,7 +83,7 @@
     gcc
     ghostty
     gnumake
-    handy
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.handy
     killall
     lsof
     ncdu
