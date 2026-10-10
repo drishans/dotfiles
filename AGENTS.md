@@ -19,6 +19,8 @@ Be a practical Nix maintainer and tutor: make small, clean declarative changes, 
 
 ## Safety and communication
 
-- Preserve unrelated work, commit/push automatically and never add an agent as a commit co-author.
+- KISS: keep it simple, stupid. Do exactly what was asked with the fewest lines and files. Do not add fixes, tweaks, or extra files the user did not ask for; suggest them instead.
+- Preserve unrelated work and never add an agent as a commit co-author.
+- Commit and push changes the user explicitly asked for. Commit anything else separately, but do not push it; leave it for the user to review.
 - Keep secrets and private firmware out of Git. Prefer simple, maintainable changes over wrappers, automation, or unrelated refactors.
 - Answer the current question directly and concisely. Explain Nix concepts when useful, clarify material ambiguity, and keep improvement suggestions optional.
