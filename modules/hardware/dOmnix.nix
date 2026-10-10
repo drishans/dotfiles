@@ -42,8 +42,12 @@ in
 
     # Allow only this user to control the speaker-mute LED, including after a
     # sound-device replug. tmpfiles also covers devices present during a rebuild.
+    #
+    # Ignore the firmware tablet-mode switch, which also turns on when the
+    # laptop is on its side and disables the keyboard (see QUIRKS.md).
     udev.extraRules = ''
       ACTION=="add", SUBSYSTEM=="leds", KERNEL=="hda::mute", RUN+="${pkgs.coreutils}/bin/chown ${username} /sys%p/brightness /sys%p/trigger"
+      SUBSYSTEM=="input", KERNEL=="event*", ATTRS{name}=="Intel HID switches", ENV{LIBINPUT_IGNORE_DEVICE}="1"
     '';
   };
 
