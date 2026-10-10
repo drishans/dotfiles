@@ -10,8 +10,18 @@ Broken behavior with no fix.
 
 Cosmetic or minor issues.
 
-- **Small cursor in WezTerm.** WezTerm runs under XWayland (`enable_wayland = false`, for touch input), so its cursor is drawn at half size on the 2x display. Raising `XCURSOR_SIZE` didn't help. To try later: run WezTerm on Wayland and check whether touch input works.
+- **Small cursor in WezTerm.** WezTerm runs under XWayland (see Workarounds), so its cursor is drawn at half size on the 2x display. Raising `XCURSOR_SIZE` didn't help. To try later: run WezTerm on Wayland and check whether touch input works.
 - **First WezTerm window after a restart is misplaced.** It has a gap on the left and top but runs to the right and bottom edges. Likely WezTerm (XWayland) opens before GNOME publishes `Xft.dpi`, then grows when it sees the 2x scale. Doesn't happen after a re-login, and later windows are fine.
+
+## Workarounds
+
+Config that exists only to get around a problem.
+
+- **WezTerm runs on X11.** `enable_wayland = false` in `config/wezterm/wezterm.lua`, because touch input doesn't work in WezTerm on Wayland.
+- **Each WezTerm launcher window is its own process.** The desktop entry passes `--always-new-process` (`home-manager/shell.nix`), because windows that share a process slow each other down while one runs a busy TUI such as btop.
+- **xdg-terminal-exec is enabled.** GNOME 50 opens terminals through `xdg-terminal-exec`, which isn't installed by default, so "open a terminal" did nothing without it (`home-manager/shell.nix`).
+- **Mute LED is driven by a user service.** The speaker-mute LED doesn't follow the default audio output by itself, so the `mute-led` service in `modules/hardware/dOmnix.nix` sets it from PipeWire's mute state.
+- **Handy types through ydotool.** This avoids GNOME's remote-interaction permission prompt on Wayland. See the Handy section in `README.md`.
 
 ## Resolved
 
