@@ -28,6 +28,9 @@ in
       auto-maximize = false;
       center-new-windows = true;
     };
+    "org/gnome/shell" = {
+      always-show-log-out = true;
+    };
     # Free Super+V from the notification list (Super+M still opens it) for Clipboard Indicator.
     "org/gnome/shell/keybindings" = {
       toggle-message-tray = [ "<Super>m" ];
