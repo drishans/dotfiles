@@ -24,5 +24,5 @@ Be a practical Nix maintainer and tutor: make small, clean declarative changes, 
 - Stage only the files you changed, by path; check `git diff --cached` before committing.
 - Commit and push changes the user explicitly asked for. Commit anything else separately, but do not push it; leave it for the user to review.
 - Keep secrets and private firmware out of Git. Prefer simple, maintainable changes over wrappers, automation, or unrelated refactors.
-- When you find a host quirk, ask before adding it to that host's `QUIRKS.md` (for example `hosts/dOmnix/QUIRKS.md`).
+- When you find a host quirk, ask before adding it under the right heading in that host's `QUIRKS.md` (for example `hosts/dOmnix/QUIRKS.md`).
 - Answer the current question directly and concisely. Explain Nix concepts when useful, clarify material ambiguity, and keep improvement suggestions optional.
