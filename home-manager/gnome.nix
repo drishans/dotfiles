@@ -9,7 +9,9 @@ let
 in
 {
   # Also sets the default Xcursor theme, so XWayland apps such as WezTerm match.
-  home.pointerCursor = cursor;
+  home.pointerCursor = cursor // {
+    enable = true;
+  };
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {
@@ -20,12 +22,12 @@ in
       auto-maximize = false;
       center-new-windows = true;
     };
-    # Free Super+V from the notification list (Super+M still opens it) for Copyous.
+    # Free Super+V from the notification list (Super+M still opens it) for Clipboard Indicator.
     "org/gnome/shell/keybindings" = {
       toggle-message-tray = [ "<Super>m" ];
     };
-    "org/gnome/shell/extensions/copyous" = {
-      open-clipboard-dialog-shortcut = [ "<Super>v" ];
+    "org/gnome/shell/extensions/clipboard-indicator" = {
+      toggle-menu = [ "<Super>v" ];
     };
   };
 
@@ -33,7 +35,8 @@ in
     enable = true;
     extensions = [
       { package = pkgs.gnomeExtensions.gjs-osk; }
-      { package = pkgs.gnomeExtensions.copyous; }
+      { package = pkgs.gnomeExtensions.wiggly; }
+      { package = pkgs.gnomeExtensions.clipboard-indicator; }
     ];
   };
 }
